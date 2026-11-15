@@ -55,8 +55,13 @@ SUBSYSTEM=="net", ACTION=="add|change|move", ENV{DEVTYPE}=="gadget", ENV{NM_UNMA
 EOF
 
 # install kernel
-wget -O - http://mirror.postmarketos.org/postmarketos/v24.06/aarch64/linux-postmarketos-qcom-msm8916-6.6-r5.apk \
-    | tar xkzf - -C ${CHROOT} --exclude=.PKGINFO --exclude=.SIGN* 2>/dev/null
+PMOS_URL="https://mirror.nura.eco/postmarketos/main/aarch64"
+KERNEL_PKG=$(wget -qO- "${PMOS_URL}/" \
+    | grep -oE 'linux-postmarketos-qcom-msm8916-[0-9][^"]+\.apk' \
+    | sort -V | tail -n 1)
+
+wget -O - "${PMOS_URL}/${KERNEL_PKG}" \
+    | tar xkzf - -C ${CHROOT} --warning=no-unknown-keyword --exclude=.PKGINFO --exclude=.SIGN*
 
 mkdir -p ${CHROOT}/boot/extlinux
 cp configs/extlinux.conf ${CHROOT}/boot/extlinux
