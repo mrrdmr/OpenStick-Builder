@@ -8,6 +8,7 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStartPre=-/usr/sbin/modprobe libcomposite
 ExecStartPre=-/usr/sbin/modprobe usb_f_ncm
+ExecStartPre=-/usr/sbin/modprobe usb_f_acm
 ExecStart=/usr/bin/gt load ncm.scheme usb0
 ExecStop=/usr/bin/gt rm -rf usb0
 
