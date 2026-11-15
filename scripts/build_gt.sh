@@ -32,6 +32,7 @@ make -C build DESTDIR="${CHROOT}" CFLAGS="--sysroot=${CHROOT}" install
 rm -rf build/*
 PKG_CONFIG_PATH="${CHROOT}/usr/lib/pkgconfig:${CHROOT}/usr/lib/aarch64-linux-gnu/pkgconfig" \
     cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
         -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
         -DCMAKE_C_FLAGS="-I$(pwd)/dist/usr/include" \
