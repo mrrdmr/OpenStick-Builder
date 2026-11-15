@@ -1,9 +1,9 @@
 Attrs : 
 {
     bcdUSB = 0x200;
-    bDeviceClass = 0x02;
-    bDeviceSubClass = 0x00;
-    bDeviceProtocol = 0x00;
+    bDeviceClass = 0xEF;
+    bDeviceSubClass = 0x02;
+    bDeviceProtocol = 0x01;
     bMaxPacketSize0 = 0x40;
     idVendor = 0x1D6B;
     idProduct = 0x0104;
@@ -13,7 +13,7 @@ strings = (
     {
         lang = 0x409;
         manufacturer = "OpenStick";
-        product = "UFI001C NCM Network";
+        product = "UFI001C NCM + Serial";
         serialnumber = "0123456789";
     } );
 functions : 
@@ -29,11 +29,16 @@ functions :
             qmult = 5;
         };
     };
+    acm_usb0 : 
+    {
+        instance = "usb0";
+        type = "acm";
+    };
 };
 configs = ( 
     {
         id = 1;
-        name = "CDC NCM";
+        name = "CDC NCM + ACM";
         attrs : 
         {
             bmAttributes = 0x80;
@@ -42,11 +47,15 @@ configs = (
         strings = ( 
             {
                 lang = 0x409;
-                configuration = "CDC NCM";
+                configuration = "CDC NCM + ACM";
             } );
         functions = ( 
             {
                 name = "ncm.usb0";
                 function = "ncm_usb0";
+            },
+            {
+                name = "acm.usb0";
+                function = "acm_usb0";
             } );
     } );
