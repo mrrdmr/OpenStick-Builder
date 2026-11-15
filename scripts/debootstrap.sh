@@ -9,7 +9,13 @@ rm -rf ${CHROOT}
 debootstrap --foreign --arch arm64 \
     --keyring /usr/share/keyrings/debian-archive-keyring.gpg ${RELEASE} ${CHROOT}
 
-cp $(which qemu-aarch64-static) ${CHROOT}/usr/bin
+QEMU_BIN=$(command -v qemu-aarch64-static || command -v qemu-aarch64 || true)
+if [ -z "${QEMU_BIN}" ]; then
+    echo "Error: qemu-aarch64 binary not found" >&2
+    exit 1
+fi
+cp "${QEMU_BIN}" "${CHROOT}/usr/bin/qemu-aarch64-static"
+chmod +x "${CHROOT}/usr/bin/qemu-aarch64-static"
 
 chroot ${CHROOT} qemu-aarch64-static /bin/bash /debootstrap/debootstrap --second-stage
 
