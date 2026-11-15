@@ -1,5 +1,5 @@
 [Unit]
-Description=Load USB gadget scheme
+Description=Load USB gadget scheme (CDC-NCM)
 Requires=sys-kernel-config.mount
 After=sys-kernel-config.mount systemd-udev-settle.service
 
@@ -7,9 +7,9 @@ After=sys-kernel-config.mount systemd-udev-settle.service
 Type=oneshot
 RemainAfterExit=yes
 ExecStartPre=-/usr/sbin/modprobe libcomposite
-ExecStartPre=-/usr/sbin/modprobe usb_f_rndis
-ExecStart=/usr/bin/gt load ncm.scheme rndis
-ExecStop=/usr/bin/gt rm -rf rndis
+ExecStartPre=-/usr/sbin/modprobe usb_f_ncm
+ExecStart=/usr/bin/gt load ncm.scheme usb0
+ExecStop=/usr/bin/gt rm -rf usb0
 
 [Install]
-WantedBy=usb-gadget.target
+WantedBy=multi-user.target
