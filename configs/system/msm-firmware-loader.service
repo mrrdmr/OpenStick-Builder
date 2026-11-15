@@ -1,11 +1,14 @@
 [Unit]
+Description=Load Qualcomm MSM8916 firmware blobs from eMMC partitions
 DefaultDependencies=no
-Before=qrtr-ns.service
+After=local-fs.target systemd-udev-settle.service
+Before=qrtr-ns.service rmtfs.service ModemManager.service
+RequiresMountsFor=/lib/firmware /usr/sbin
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/sbin/msm-firmware-loader.sh
-RequiresMountsFor=/lib/firmware /usr/sbin
 
 [Install]
 WantedBy=multi-user.target
