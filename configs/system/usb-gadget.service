@@ -8,7 +8,7 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStartPre=-/usr/sbin/modprobe libcomposite
 ExecStartPre=-/usr/sbin/modprobe usb_f_rndis
-ExecStart=/usr/bin/gt load rndis-os-desc.scheme rndis
+ExecStart=/usr/bin/gt load ncm.scheme rndis
 ExecStop=/usr/bin/gt rm -rf rndis
 
 [Install]
