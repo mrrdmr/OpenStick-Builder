@@ -1,17 +1,16 @@
 [connection]
-id=usb
-uuid=6d73d069-b482-41ec-bbc2-f769089700cb
+id=usb-ncm
+uuid=6f8c2a10-4b3e-4d9a-8c1f-2e5b7a9d0c31
 type=ethernet
 interface-name=usb0
+autoconnect=true
 
 [ethernet]
 
 [ipv4]
-address1=192.168.5.1/24
+address1=192.168.68.1/24
 method=shared
 
 [ipv6]
 addr-gen-mode=default
-method=auto
-
-[proxy]
+method=ignore
